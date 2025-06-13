@@ -1,7 +1,7 @@
 package com.project.dormimanager.Service;
 
 import com.project.dormimanager.Mapper.TestMapper;
-import com.project.dormimanager.Mapper.Test;
+import com.project.dormimanager.Vo.Test;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
