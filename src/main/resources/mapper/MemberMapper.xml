@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.dormimanager.Mapper.MemberMapper">
+
+    <!-- 회원 정보 조회 (학번으로) -->
+    <select id="findByStudentId" resultType="com.project.dormimanager.DTO.Member">
+        SELECT
+        student_id as studentId,
+        password,
+        role,
+        name,
+        phone,
+        gender,
+        id,
+        image_url as imgUrl,
+        email,
+        major
+        FROM member
+        WHERE student_id = #{studentId}
+    </select>
+
+    <!-- 비밀번호 변경(학번으로) -->
+    <update id="updatePassword">
+        UPDATE MEMBER
+        SET PASSWORD = #{password}
+        WHERE STUDENT_ID = #{studentId}
+    </update>
+</mapper>
