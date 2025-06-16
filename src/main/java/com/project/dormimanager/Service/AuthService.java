@@ -20,7 +20,7 @@ public class AuthService {
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
-    public String authenticate(Long studentId, String password) {
+    public String authenticate(String studentId, String password) {
         Member member = memberMapper.findByStudentId(studentId);
 //        if (member == null || !passwordEncoder.matches(password, member.getPassword())) {
 //            throw new RuntimeException("학번 또는 비밀번호가 틀렸습니다.");
@@ -31,7 +31,7 @@ public class AuthService {
         else if(!passwordEncoder.matches(password, member.getPassword())){
             throw new RuntimeException("2");
         }
-        return jwtTokenProvider.createToken(member.getStudentId().toString(), member.getRole());
+        return jwtTokenProvider.createToken(member.getStudentId().toString(), member.getRole(), member.getStudentId());
     }
 
     public void register(RegisterRequest request) {
