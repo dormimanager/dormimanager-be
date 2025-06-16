@@ -1,4 +1,4 @@
-package com.project.dormimanager.Mapper;
+package com.project.dormimanager.Vo;
 
 public class Test {
     private Long id;

@@ -1,7 +1,7 @@
 package com.project.dormimanager.Controller;
 
 
-import com.project.dormimanager.Mapper.Test;
+import com.project.dormimanager.Vo.Test;
 import com.project.dormimanager.Service.TestService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
