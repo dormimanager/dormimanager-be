@@ -18,7 +18,6 @@ public class TestController {
     @GetMapping
     public List<Test> getTests() {
         System.out.println(testService.getAllTests());
-        System.out.println(123);
         return testService.getAllTests();
     }
 }
