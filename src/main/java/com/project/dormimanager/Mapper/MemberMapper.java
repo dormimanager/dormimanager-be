@@ -8,5 +8,6 @@ import org.apache.ibatis.annotations.Param;
 public interface MemberMapper {
     Member findByStudentId(String studentId);
     void updatePassword(@Param("studentId") String studentId, @Param("password") String password);
+    void updateMember(Member member);
 }
 

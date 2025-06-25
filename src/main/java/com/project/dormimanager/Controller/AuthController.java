@@ -1,15 +1,16 @@
 package com.project.dormimanager.Controller;
 
 import com.project.dormimanager.DTO.LoginRequest;
+import com.project.dormimanager.DTO.Member;
 import com.project.dormimanager.DTO.RegisterRequest;
 import com.project.dormimanager.Service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,5 +54,55 @@ public class AuthController {
             }
         }
     }
+
+    @GetMapping("/getInfo")
+    public ResponseEntity<Member> findByStudentId(@RequestParam String studentId) {
+        Member member = authService.findByStudentId(studentId);
+        if (member == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(member);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<?> updateMember(
+            @RequestParam String studentId,
+            @RequestParam(required = false) MultipartFile profileImage,
+            @RequestParam(required = false) String email,
+            @RequestParam(required = false) String phone) throws IOException {
+
+        String uploadDir = "C:/uploads/";
+        File uploadPath = new File(uploadDir);
+
+        // 기존 이미지 파일 삭제 (학번_profile.* 패턴)
+        if(profileImage!=null){
+            File[] oldFiles = uploadPath.listFiles((dir, name) ->
+                    name.startsWith(studentId + "_profile.")
+            );
+            if (oldFiles != null) {
+                for (File file : oldFiles) {
+                    file.delete();
+                }
+            }
+        }
+
+        // 새 이미지 저장
+        String imgUrl = null;
+        if (profileImage != null && !profileImage.isEmpty()) {
+            String extension = profileImage.getOriginalFilename()
+                    .substring(profileImage.getOriginalFilename().lastIndexOf("."));
+            String fileName = studentId + "_profile" + extension;
+            if (!uploadPath.exists()) uploadPath.mkdirs();
+            File dest = new File(uploadPath, fileName);
+            profileImage.transferTo(dest);
+            imgUrl = "/uploads/" + fileName;
+        }
+
+        // 회원 정보 업데이트
+        authService.updateMember(studentId, email, phone, imgUrl);
+
+        return ResponseEntity.ok("수정되었습니다.");
+    }
+
 }
 

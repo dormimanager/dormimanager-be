@@ -57,4 +57,16 @@ public class AuthService {
             }
         }
     }
+
+    public Member findByStudentId(String studentId) {
+        return memberMapper.findByStudentId(studentId);
+    }
+
+    public void updateMember(String studentId, String email, String phone, String imgUrl) {
+        Member member = memberMapper.findByStudentId(studentId);
+        if (email != null) member.setEmail(email);
+        if (phone != null) member.setPhone(phone);
+        if (imgUrl != null) member.setImgUrl(imgUrl);
+        memberMapper.updateMember(member);
+    }
 }
