@@ -26,4 +26,23 @@
         SET PASSWORD = #{password}
         WHERE STUDENT_ID = #{studentId}
     </update>
+
+    <!-- 회원정보수정 -->
+    <update id="updateMember">
+        UPDATE member
+        <set>
+            <if test="imgUrl != null">
+                image_url = #{imgUrl},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="email != null">
+                email = #{email}
+            </if>
+        </set>
+        WHERE student_id = #{studentId}
+    </update>
+
+
 </mapper>
