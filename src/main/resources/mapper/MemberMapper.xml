@@ -12,7 +12,6 @@
         name,
         phone,
         gender,
-        id,
         image_url as imgUrl,
         email,
         major
