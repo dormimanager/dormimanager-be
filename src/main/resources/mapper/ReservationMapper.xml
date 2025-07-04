@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.dormimanager.Mapper.ReservationMapper">
+
+    <insert id="insertReservation"
+            parameterType="com.project.dormimanager.DTO.Reservation">
+        INSERT INTO RESERVATION (
+            student_id,
+            reserv_type,
+            laundry_id,
+            reserv_time,
+            building_id,
+            studyroom_id
+        ) VALUES (
+                     #{studentId, jdbcType=VARCHAR},
+                     #{reservType, jdbcType=VARCHAR},
+                     #{laundryId, jdbcType=NUMERIC},
+                     #{reservTime, jdbcType=DATE},
+                     #{buildingId, jdbcType=NUMERIC},
+                     #{studyroomId, jdbcType=NUMERIC}
+                 )
+    </insert>
+
+    <!--예약 내역 조회-->
+    <select id="selectReservedTimes" resultType="string">
+        SELECT time_slot
+        FROM reservation
+        WHERE laundry_id = #{laundryId}
+          AND DATE(reserv_time) = #{date}
+    </select>
+
+
+
+</mapper>
