@@ -24,11 +24,12 @@
     </insert>
 
     <!--예약 내역 조회-->
-    <select id="selectReservedTimes" resultType="string">
-        SELECT time_slot
+    <select id="selectReservedTimes" resultType="java.util.Date">
+        SELECT reserv_time
         FROM reservation
         WHERE laundry_id = #{laundryId}
-          AND DATE(reserv_time) = #{date}
+          AND reserv_type = #{reservType}
+          AND TRUNC(reserv_time) = TO_DATE(#{date}, 'YYYY-MM-DD')
     </select>
 
 
