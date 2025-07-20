@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.dormimanager.Mapper.SurveyMapper">
+
+    <insert id="insertSurvey" parameterType="com.project.dormimanager.DTO.Survey">
+        INSERT INTO SURVEY
+            ( student_id, lifestyle, smoking, personality, cleanliness, noise)
+        VALUES
+            (#{studentId, jdbcType=VARCHAR}, #{lifestyle}, #{smoking}, #{personality}, #{cleanliness}, #{noise})
+    </insert>
+</mapper>

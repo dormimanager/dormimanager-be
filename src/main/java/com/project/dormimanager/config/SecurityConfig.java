@@ -31,6 +31,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/complain/**").permitAll()
                         .requestMatchers("/uploads/**").permitAll()
                         .requestMatchers("/api/stu/reservation/**").permitAll()
+                        .requestMatchers("/api/stu/survey").permitAll()
                         .anyRequest().authenticated()
                 )
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()));
