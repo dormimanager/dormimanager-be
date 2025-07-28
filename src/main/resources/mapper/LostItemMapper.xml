@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.dormimanager.Mapper.LostItemMapper">
+
+    <insert id="insertLostItem" parameterType="com.project.dormimanager.DTO.LostItem">
+        INSERT INTO lost_item
+        (item_name, category, description, found_date, found_location, image_url)
+        VALUES
+        (#{itemName}, #{category}, #{description}, #{foundDate}, #{foundLocation}, #{imageUrl})
+    </insert>
+
+    <select id="findItems" resultType="com.project.dormimanager.DTO.LostItem">
+        SELECT
+        id,
+        item_name as itemName,
+        found_date as foundDate,
+        category,
+        image_url as imageUrl,
+        description
+        FROM
+        lost_item
+        <where>
+            <if test="category != null and category != ''">
+                AND category = #{category}
+            </if>
+            <if test="startDate != null and startDate != ''">
+                AND found_date &gt;= TO_DATE(#{startDate}, 'YYYY-MM-DD')
+            </if>
+            <if test="endDate != null and endDate != ''">
+                AND found_date &lt;= TO_DATE(#{endDate}, 'YYYY-MM-DD')
+            </if>
+            <if test="itemName != null and itemName != ''">
+                AND item_name LIKE '%' || #{itemName} || '%'
+            </if>
+        </where>
+        ORDER BY found_date DESC
+    </select>
+
+</mapper>
+

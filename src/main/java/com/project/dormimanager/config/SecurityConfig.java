@@ -32,6 +32,7 @@ public class SecurityConfig {
                         .requestMatchers("/uploads/**").permitAll()
                         .requestMatchers("/api/stu/reservation/**").permitAll()
                         .requestMatchers("/api/stu/survey").permitAll()
+                        .requestMatchers("/api/lost-items/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()));
