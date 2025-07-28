@@ -10,5 +10,5 @@ public class Survey {
     private String personality;
     private String cleanliness;
     private String noise;
-    private int id;
+    private Integer id;
 }

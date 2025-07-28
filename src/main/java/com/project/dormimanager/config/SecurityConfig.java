@@ -20,6 +20,7 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    //합친거 확인용
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -31,6 +32,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/complain/**").permitAll()
                         .requestMatchers("/uploads/**").permitAll()
                         .requestMatchers("/api/stu/reservation/**").permitAll()
+                        .requestMatchers("/api/stu/survey").permitAll()
                         .requestMatchers("/api/lost-items/**").permitAll()
                         .anyRequest().authenticated()
                 )
